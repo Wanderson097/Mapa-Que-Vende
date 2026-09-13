@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mapa Que Vende | Mais clientes pelo Google</title>
+
+  <meta
+    name="description"
+    content="Aprenda a melhorar o perfil da sua empresa no Google Maps e atraia mais clientes."
+  >
+
+  <style>
+    :root {
+      --bg: #080b12;
+      --bg-secondary: #101620;
+      --card: #151d29;
+      --card-hover: #1b2635;
+      --text: #f5f7fb;
+      --muted: #aab4c3;
+      --primary: #27d17f;
+      --primary-dark: #16a765;
+      --border: rgba(255,255,255,0.09);
+      --danger: #ff7676;
+      --max-width: 1120px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 11, 18, 0.92);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      min-height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .menu-button {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 100px 0 85px;
+      background:
+        radial-gradient(circle at top right, rgba(39,209,127,0.13), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(40,100,255,0.10), transparent 30%);
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      background: rgba(39,209,127,0.1);
+      border: 1px solid rgba(39,209,127,0.25);
+      color: var(--primary);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 5vw, 67px);
+      line-height: 1.04;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .button-primary {
+      background: var(--primary);
+      color: #06130c;
+    }
+
+    .button-primary:hover {
+      background: var(--primary-dark);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .button-secondary {
+      background: transparent;
+      border-color: var(--border);
+      color: white;
+    }
+
+    .button-secondary:hover {
+      background: var(--card);
+      transform: translateY(-2px);
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #192333, #0e141e);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.25);
+    }
+
+    .hero-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .hero-card-title {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .status {
+      color: var(--primary);
+      font-size: 12px;
+      background: rgba(39,209,127,0.1);
+      padding: 6px 10px;
+      border-radius: 100px;
+    }
+
+    .map-preview {
+      position: relative;
+      min-height: 260px;
+      overflow: hidden;
+      border-radius: 15px;
+      background:
+        linear-gradient(25deg, transparent 45%, rgba(255,255,255,0.06) 46%, transparent 48%),
+        linear-gradient(-25deg, transparent 45%, rgba(255,255,255,0.06) 46%, transparent 48%),
+        #263442;
+      background-size: 80px 80px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .map-road {
+      position: absolute;
+      background: #b5c1c9;
+      opacity: 0.55;
+      height: 14px;
+      width: 130%;
+      transform: rotate(-23deg);
+      top: 48%;
+      left: -15%;
+    }
+
+    .map-road.two {
+      transform: rotate(37deg);
+      top: 28%;
+      height: 9px;
+      opacity: 0.4;
+    }
+
+    .map-road.three {
+      transform: rotate(90deg);
+      top: 0;
+      left: 50%;
+      height: 8px;
+      width: 150%;
+      opacity: 0.35;
+    }
+
+    .pin {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      background: #e84545;
+      color: white;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .pin::after {
+      content: "★";
+      transform: rotate(45deg);
+      font-size: 18px;
+    }
+
+    .pin.main {
+      left: 47%;
+      top: 42%;
+    }
+
+    .pin.small {
+      width: 27px;
+      height: 27px;
+      background: #3d91ff;
+    }
+
+    .pin.small::after {
+      font-size: 11px;
+    }
+
+    .pin.one {
+      left: 20%;
+      top: 25%;
+    }
+
+    .pin.two {
+      right: 18%;
+      bottom: 20%;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section {
+      padding: 90px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 45px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 15px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      transition: 0.2s;
+    }
+
+    .feature:hover {
+      background: var(--card-hover);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(39,209,127,0.12);
+      border-radius: 12px;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .feature h3 {
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .dark-section {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modules {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .module {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .module-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 35px;
+      height: 35px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #06130c;
+      font-weight: bold;
+    }
+
+    .module h3 {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .module p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .price-area {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      align-items: stretch;
+    }
+
+    .price-card,
+    .payment-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+    }
+
+    .price-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .price-label {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 55px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin-bottom: 10px;
+    }
+
+    .price small {
+      font-size: 18px;
+      color: var(--muted);
+      font-weight: normal;
+    }
+
+    .price-description {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .benefits {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .benefits li {
+      color: #dce4ed;
+      font-size: 14px;
+    }
+
+    .benefits li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .payment-card h3 {
+      font-size: 23px;
+      margin-bottom: 10px;
+    }
+
+    .payment-card > p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .pix-box {
+      background: #0b111a;
+      border: 1px dashed rgba(39,209,127,0.5);
+      border-radius: 13px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .pix-label {
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .pix-key {
+      word-break: break-all;
+      color: white;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    .copy-button {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: white;
+      padding: 11px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .copy-button:hover {
+      background: var(--card-hover);
+    }
+
+    .notice {
+      padding: 13px;
+      background: rgba(255,193,7,0.08);
+      border: 1px solid rgba(255,193,7,0.25);
+      color: #e7d18b;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    .form {
+      display: grid;
+      gap: 13px;
+    }
+
+    .form label {
+      color: #d9e1eb;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .form input,
+    .form textarea {
+      width: 100%;
+      padding: 13px 14px;
+      background: #0b111a;
+      color: white;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+    }
+
+    .form input:focus,
+    .form textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .form textarea {
+      min-height: 85px;
+      resize: vertical;
+    }
+
+    .contact-box {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(39,209,127,0.13), rgba(40,100,255,0.09));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 45px 25px;
+    }
+
+    .contact-box h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      margin-bottom: 14px;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 25px;
+    }
+
+    .contact-number {
+      display: block;
+      color: var(--primary);
+      font-size: 25px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--primary);
+      color: #06130c;
+      font-weight: bold;
+      padding: 13px 20px;
+      border-radius: 10px;
+      opacity: 0;
+      transition: 0.3s;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 850px) {
+      .hero-content,
+      .price-area {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 70px 0;
+      }
+
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 75px;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        padding: 20px;
+        flex-direction: column;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-button {
+        display: block;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero h1 {
+        letter-spacing: -1.5px;
+      }
+
+      .features,
+      .modules {
+        grid-template-columns: 1fr;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .price {
+        font-size: 45px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="container nav">
+      <a href="#" class="logo">MAPA <span>QUE VENDE</span></a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#conteudo">Conteúdo</a>
+        <a href="#pagamento">Pagamento</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <button class="menu-button" onclick="toggleMenu()">Menu</button>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="container hero-content">
+
+        <div>
+          <div class="tag">● Método prático para pequenos negócios</div>
+
+          <h1>
+            Faça sua empresa aparecer melhor no Google e
+            <span>atraia mais clientes.</span>
+          </h1>
+
+          <p>
+            Um kit simples e direto para organizar o perfil da sua empresa
+            no Google Maps, melhorar sua apresentação e aumentar as chances
+            de receber contatos de novos clientes.
+          </p>
+
+          <div class="buttons">
+            <a href="#pagamento" class="button button-primary">
+              Quero adquirir o kit
+            </a>
+
+            <a
+              href="https://wa.me/5589994236525?text=Olá!%20Vi%20o%20Mapa%20Que%20Vende%20e%20quero%20saber%20mais."
+              target="_blank"
+              class="button button-secondary"
+            >
+              Falar pelo WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-card-top">
+            <div class="hero-card-title">Presença da sua empresa</div>
+            <div class="status">Mais profissional</div>
+          </div>
+
+          <div class="map-preview">
+            <div class="map-road"></div>
+            <div class="map-road two"></div>
+            <div class="map-road three"></div>
+
+            <div class="pin main"></div>
+            <div class="pin small one"></div>
+            <div class="pin small two"></div>
+          </div>
+
+          <div class="card-footer">
+            <span>Perfil organizado</span>
+            <span>Mais confiança</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section" id="como-funciona">
+      <div class="container">
+
+        <div class="section-header">
+          <h2>O que você vai aprender</h2>
+          <p>
+            O MAPA QUE VENDE foi criado para quem quer melhorar a presença
+            digital da própria empresa sem complicação.
+          </p>
+        </div>
+
+        <div class="features">
+
+          <div class="feature">
+            <div class="feature-icon">📍</div>
+            <h3>Melhorar o Google Maps</h3>
+            <p>
+              Aprenda a identificar o que está errado ou incompleto no perfil
+              da sua empresa.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">⭐</div>
+            <h3>Conseguir mais confiança</h3>
+            <p>
+              Organize fotos, informações e avaliações para transmitir mais
+              profissionalismo aos visitantes.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">🤖</div>
+            <h3>Usar IA a seu favor</h3>
+            <p>
+              Tenha prompts prontos para criar descrições, respostas e ideias
+              de divulgação para sua empresa.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">📸</div>
+            <h3>Publicar fotos melhores</h3>
+            <p>
+              Saiba quais fotos colocar e como mostrar seus produtos,
+              serviços e ambiente.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">💬</div>
+            <h3>Responder avaliações</h3>
+            <p>
+              Use respostas prontas e profissionais para clientes satisfeitos
+              ou insatisfeitos.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">⏱️</div>
+            <h3>Manter tudo atualizado</h3>
+            <p>
+              Siga uma rotina simples de poucos minutos para não deixar o
+              perfil abandonado.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark-section" id="conteudo">
+      <div class="container">
+
+        <div class="section-header">
+          <h2>O que vem dentro do MAPA QUE VENDE</h2>
+          <p>
+            Conteúdo direto ao ponto para você aplicar na sua empresa.
+          </p>
+        </div>
+
+        <div class="modules">
+
+          <div class="module">
+            <div class="module-number">1</div>
+            <div>
+              <h3>Começando</h3>
+              <p>Entenda como o Google apresenta empresas e clientes.</p>
+            </div>
+          </div>
+
+          <div class="module">
+            <div class="module-number">2</div>
+            <div>
+              <h3>Diagnóstico 10/10</h3>
+              <p>Checklist para descobrir o que precisa ser melhorado.</p>
+            </div>
+          </div>
+
+          <div class="module">
+            <div class="module-number">3</div>
+            <div>
+              <h3>Arrumando o Perfil</h3>
+              <p>Como revisar nome, categoria, endereço, telefone e horário.</p>
+            </div>
+          </div>
+
+          <div class="module">
+            <div class="module-number">4</div>
+            <div>
+              <h3>Fotos que Vendem</h3>
+              <p>Como escolher e organizar fotos mais atrativas.</p>
+            </div>
+          </div>
+
+          <div class="module">
+            <div class="module-number">5</div>
+            <div>
+              <h3>Sistema de Avaliações</h3>
+              <p>Como pedir avaliações de maneira correta e profissional.</p>
+            </div>
+          </div>
+
+          <div class="module">
+            <div class="module-number">6</div>
+            <div>
+              <h3>Respostas Prontas</h3>
+              <p>Modelos de respostas para elogios, dúvidas e reclamações.</p>
+            </div>
+          </div>
+
+          <div class="module">
+            <div class="module-number">7</div>
+            <div>
+              <h3>IA para Donos de Empresas</h3>
+              <p>Prompts prontos para usar inteligência artificial.</p>
+            </div>
+          </div>
+
+          <div class="module">
+            <div class="module-number">8</div>
+            <div>
+              <h3>Rotina de 15 Minutos</h3>
+              <p>Uma rotina simples para manter o perfil atualizado.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pagamento">
+      <div class="container">
+
+        <div class="section-header">
+          <h2>Adquira seu acesso</h2>
+          <p>
+            Pagamento único. Depois da confirmação, você recebe as instruções
+            para acessar o material.
+          </p>
+        </div>
+
+        <div class="price-area">
+
+          <div class="price-card">
+            <div>
+              <div class="price-label">Acesso completo</div>
+
+              <div class="price">
+                R$47<small>,00</small>
+              </div>
+
+              <p class="price-description">
+                Pagamento único, sem mensalidade.
+              </p>
+
+              <ul class="benefits">
+                <li>8 módulos práticos</li>
+                <li>Checklist final de melhoria</li>
+                <li>Calendário de 30 dias</li>
+                <li>20 prompts de IA</li>
+                <li>Material digital</li>
+                <li>Suporte pelo WhatsApp</li>
+              </ul>
+            </div>
+
+            <a
+              href="https://wa.me/5589994236525?text=Olá!%20Quero%20comprar%20o%20MAPA%20QUE%20VENDE%20por%20R%2447."
+              target="_blank"
+              class="button button-primary"
+            >
+              Comprar pelo WhatsApp
+            </a>
+          </div>
+
+          <div class="payment-card">
+            <h3>Pagamento por Pix</h3>
+
+            <p>
+              Faça o pagamento de R$47,00 usando a chave Pix abaixo.
+              Depois, envie o comprovante pelo WhatsApp.
+            </p>
+
+            <div class="pix-box">
+              <div class="pix-label">Chave Pix</div>
+
+              <div class="pix-key" id="pixKey">
+                89994236525
+              </div>
+
+              <button class="copy-button" onclick="copyPix()">
+                Copiar chave Pix
+              </button>
+            </div>
+
+            <div class="notice">
+              Após realizar o pagamento, envie o comprovante e seu nome pelo
+              WhatsApp. O acesso será liberado depois da confirmação.
+            </div>
+
+            <form class="form" onsubmit="sendProof(event)">
+              <div>
+                <label for="clientName">Seu nome</label>
+                <input
+                  type="text"
+                  id="clientName"
+                  placeholder="Digite seu nome"
+                  required
+                >
+              </div>
+
+              <div>
+                <label for="clientMessage">Mensagem</label>
+                <textarea
+                  id="clientMessage"
+                  placeholder="Exemplo: Olá, fiz o pagamento do MAPA QUE VENDE. Vou enviar o comprovante."
+                  required
+                ></textarea>
+              </div>
+
+              <button class="button button-primary" type="submit">
+                Enviar mensagem pelo WhatsApp
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contato">
+      <div class="container">
+        <div class="contact-box">
+
+          <h2>Tem alguma dúvida?</h2>
+
+          <p>
+            Fale diretamente comigo pelo WhatsApp. Posso explicar como
+            funciona o material, o pagamento e o recebimento do acesso.
+          </p>
+
+          <a
+            href="https://wa.me/5589994236525?text=Olá!%20Tenho%20uma%20dúvida%20sobre%20o%20MAPA%20QUE%20VENDE."
+            target="_blank"
+            class="button button-primary"
+          >
+            Conversar agora
+          </a>
+
+          <a
+            href="tel:+5589994236525"
+            class="contact-number"
+          >
+            (89) 99423-6525
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>© 2026 MAPA QUE VENDE. Todos os direitos reservados.</div>
+      <div>Material digital para pequenos negócios.</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">
+    Chave Pix copiada!
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const navLinks = document.getElementById("navLinks");
+      navLinks.classList.toggle("active");
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2500);
+    }
+
+    function copyPix() {
+      const pixKey = document.getElementById("pixKey").textContent.trim();
+
+      if (pixKey === "89994236525") {
+        showToast("Primeiro coloque sua chave Pix no código.");
+        return;
+      }
+
+      navigator.clipboard.writeText(pixKey)
+        .then(() => {
+          showToast("Chave Pix copiada!");
+        })
+        .catch(() => {
+          showToast("Copie a chave Pix manualmente.");
+        });
+    }
+
+    function sendProof(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("clientName").value.trim();
+      const message = document.getElementById("clientMessage").value.trim();
+
+      const text =
+        "Olá! Meu nome é " +
+        Wanderson Ferreira +
+        ".%0A%0A" +
+        encodeURIComponent(message) +
+        "%0A%0AVou enviar o comprovante do Pix por aqui.";
+
+      const whatsappUrl =
+        "https://wa.me/5589994236525?text=" + text;
+
+      window.open(whatsappUrl, "_blank");
+    }
+  </script>
+
+</body>
+</html>
